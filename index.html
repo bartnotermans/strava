@@ -162,10 +162,12 @@
     }
 
     function updateDashboard() {
+        // Haal waarden op van de inputs
         const from = document.getElementById('dateFrom').value;
         const to = document.getElementById('dateTo').value;
         const nameFilter = document.getElementById('nameFilter').value.toLowerCase();
 
+        // Filter de ritten
         const filtered = allRuns.filter(r => 
             (!from || r.datum >= from) && 
             (!to || r.datum <= to) && 
@@ -178,6 +180,7 @@
             { label: "1 km", dist: 1000, margin: 150, type: 'both' },
             { label: "5 km", dist: 5000, margin: 500, type: 'full' },
             { label: "10 km", dist: 10000, margin: 900, type: 'full' }
+            { label: "Halve Marathon", dist: 21000, margin: 900, type: 'full' }
         ];
 
         const grid = document.getElementById('statsGrid');
@@ -186,7 +189,6 @@
         targets.forEach(t => {
             let paces = [];
             filtered.forEach(run => {
-                // Check in Laps (voor intervallen)
                 if ((t.type === 'lap' || t.type === 'both') && run.laps) {
                     run.laps.forEach(lap => {
                         if (Math.abs(lap.afstand - t.dist) < t.margin && lap.tijd > 0) {
@@ -194,7 +196,6 @@
                         }
                     });
                 }
-                // Check in Hele Rit (voor PR's op afstand)
                 if ((t.type === 'full' || t.type === 'both') && run.afstand_m > 0) {
                     if (Math.abs(run.afstand_m - t.dist) < t.margin) {
                         paces.push(run.tijd_sec / (run.afstand_m / 1000));
@@ -242,25 +243,28 @@
         });
     }
 
-    // Inladen data
+    // Inladen data en daarna pas de filters activeren
     fetch('stats.json')
         .then(response => response.json())
         .then(data => {
             allRuns = data;
-            // Zet default filters: heel 2025 tot nu
+            
+            // Zet default datums
             document.getElementById('dateFrom').value = "2025-01-01";
             document.getElementById('dateTo').value = new Date().toISOString().split('T')[0];
+            
+            // Koppel de update functie aan de inputs
+            document.getElementById('dateFrom').onchange = updateDashboard;
+            document.getElementById('dateTo').onchange = updateDashboard;
+            document.getElementById('nameFilter').oninput = updateDashboard;
+            
+            // Eerste weergave
             updateDashboard();
         })
         .catch(err => {
             console.error("Fout:", err);
-            document.getElementById('detailsBody').innerHTML = '<tr><td colspan="3">Kon stats.json niet laden.</td></tr>';
+            document.getElementById('detailsBody').innerHTML = '<tr><td colspan="3">Data kon niet worden geladen.</td></tr>';
         });
-
-    // Luister naar input wijzigingen
-    document.getElementById('dateFrom').addEventListener('input', updateDashboard);
-    document.getElementById('dateTo').addEventListener('input', updateDashboard);
-    document.getElementById('nameFilter').addEventListener('input', updateDashboard);
 </script>
 </body>
 </html>
