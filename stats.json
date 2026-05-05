@@ -1,0 +1,782 @@
+[
+    {
+        "id": 18383716877,
+        "datum": "2026-05-05",
+        "naam": "Interval loop",
+        "afstand_m": 8528.7,
+        "tijd_sec": 3139,
+        "workout_type": 3,
+        "laps": [
+            {
+                "afstand": 1996.74,
+                "tijd": 770,
+                "tempo": 2.59
+            },
+            {
+                "afstand": 399.03,
+                "tijd": 113,
+                "tempo": 3.53
+            },
+            {
+                "afstand": 160.16,
+                "tijd": 89,
+                "tempo": 1.8
+            },
+            {
+                "afstand": 397.74,
+                "tijd": 115,
+                "tempo": 3.46
+            },
+            {
+                "afstand": 152.22,
+                "tijd": 89,
+                "tempo": 1.71
+            },
+            {
+                "afstand": 397.61,
+                "tijd": 118,
+                "tempo": 3.37
+            },
+            {
+                "afstand": 144.26,
+                "tijd": 89,
+                "tempo": 1.62
+            },
+            {
+                "afstand": 393.58,
+                "tijd": 109,
+                "tempo": 3.61
+            },
+            {
+                "afstand": 149.28,
+                "tijd": 89,
+                "tempo": 1.68
+            },
+            {
+                "afstand": 407.36,
+                "tijd": 108,
+                "tempo": 3.77
+            },
+            {
+                "afstand": 154.08,
+                "tijd": 89,
+                "tempo": 1.73
+            },
+            {
+                "afstand": 409.15,
+                "tijd": 77,
+                "tempo": 5.31
+            },
+            {
+                "afstand": 137.41,
+                "tijd": 90,
+                "tempo": 1.53
+            },
+            {
+                "afstand": 396.18,
+                "tijd": 106,
+                "tempo": 3.74
+            },
+            {
+                "afstand": 148.68,
+                "tijd": 89,
+                "tempo": 1.67
+            },
+            {
+                "afstand": 399.55,
+                "tijd": 108,
+                "tempo": 3.7
+            },
+            {
+                "afstand": 153.37,
+                "tijd": 89,
+                "tempo": 1.72
+            },
+            {
+                "afstand": 405.24,
+                "tijd": 110,
+                "tempo": 3.68
+            },
+            {
+                "afstand": 146.96,
+                "tijd": 89,
+                "tempo": 1.65
+            },
+            {
+                "afstand": 398.9,
+                "tijd": 106,
+                "tempo": 3.76
+            },
+            {
+                "afstand": 181.11,
+                "tijd": 89,
+                "tempo": 2.03
+            },
+            {
+                "afstand": 989.37,
+                "tijd": 395,
+                "tempo": 2.5
+            },
+            {
+                "afstand": 3.88,
+                "tijd": 2,
+                "tempo": 1.94
+            }
+        ]
+    },
+    {
+        "id": 18370239389,
+        "datum": "2026-05-04",
+        "naam": "Herstelloop",
+        "afstand_m": 5010.7,
+        "tijd_sec": 2097,
+        "workout_type": 3,
+        "laps": [
+            {
+                "afstand": 5008.33,
+                "tijd": 2101,
+                "tempo": 2.38
+            }
+        ]
+    },
+    {
+        "id": 18356298037,
+        "datum": "2026-05-03",
+        "naam": "Rustige duurloop",
+        "afstand_m": 13017.1,
+        "tijd_sec": 4465,
+        "workout_type": 2,
+        "laps": [
+            {
+                "afstand": 13024.1,
+                "tijd": 4466,
+                "tempo": 2.92
+            }
+        ]
+    },
+    {
+        "id": 18317272984,
+        "datum": "2026-04-30",
+        "naam": "Tempo training",
+        "afstand_m": 8014.3,
+        "tijd_sec": 2610,
+        "workout_type": 3,
+        "laps": [
+            {
+                "afstand": 2005.92,
+                "tijd": 706,
+                "tempo": 2.84
+            },
+            {
+                "afstand": 4004.77,
+                "tijd": 1179,
+                "tempo": 3.4
+            },
+            {
+                "afstand": 1987.54,
+                "tijd": 716,
+                "tempo": 2.78
+            },
+            {
+                "afstand": 20.39,
+                "tijd": 8,
+                "tempo": 2.55
+            }
+        ]
+    },
+    {
+        "id": 18290635410,
+        "datum": "2026-04-28",
+        "naam": "Interval training",
+        "afstand_m": 9109.7,
+        "tijd_sec": 3018,
+        "workout_type": 2,
+        "laps": [
+            {
+                "afstand": 2006.12,
+                "tijd": 695,
+                "tempo": 2.89
+            },
+            {
+                "afstand": 999.03,
+                "tijd": 273,
+                "tempo": 3.66
+            },
+            {
+                "afstand": 206.96,
+                "tijd": 119,
+                "tempo": 1.74
+            },
+            {
+                "afstand": 1002.22,
+                "tijd": 274,
+                "tempo": 3.66
+            },
+            {
+                "afstand": 235.85,
+                "tijd": 119,
+                "tempo": 1.98
+            },
+            {
+                "afstand": 988.36,
+                "tijd": 269,
+                "tempo": 3.67
+            },
+            {
+                "afstand": 227.0,
+                "tijd": 119,
+                "tempo": 1.91
+            },
+            {
+                "afstand": 999.65,
+                "tijd": 272,
+                "tempo": 3.68
+            },
+            {
+                "afstand": 215.09,
+                "tijd": 119,
+                "tempo": 1.81
+            },
+            {
+                "afstand": 1010.64,
+                "tijd": 277,
+                "tempo": 3.65
+            },
+            {
+                "afstand": 217.74,
+                "tijd": 119,
+                "tempo": 1.83
+            },
+            {
+                "afstand": 998.88,
+                "tijd": 354,
+                "tempo": 2.82
+            },
+            {
+                "afstand": 5.93,
+                "tijd": 6,
+                "tempo": 0.99
+            }
+        ]
+    },
+    {
+        "id": 18262769266,
+        "datum": "2026-04-26",
+        "naam": "Ochtendloop",
+        "afstand_m": 12049.2,
+        "tijd_sec": 4266,
+        "workout_type": 2,
+        "laps": [
+            {
+                "afstand": 12048.5,
+                "tijd": 4266,
+                "tempo": 2.82
+            }
+        ]
+    },
+    {
+        "id": 18227293687,
+        "datum": "2026-04-23",
+        "naam": "Temporun",
+        "afstand_m": 6343.6,
+        "tijd_sec": 1950,
+        "workout_type": 3,
+        "laps": [
+            {
+                "afstand": 2001.23,
+                "tijd": 710,
+                "tempo": 2.82
+            },
+            {
+                "afstand": 4007.86,
+                "tijd": 1124,
+                "tempo": 3.57
+            },
+            {
+                "afstand": 334.56,
+                "tijd": 119,
+                "tempo": 2.81
+            }
+        ]
+    },
+    {
+        "id": 18199477239,
+        "datum": "2026-04-21",
+        "naam": "Intervallen 5x 1000m",
+        "afstand_m": 9334.7,
+        "tijd_sec": 3225,
+        "workout_type": 2,
+        "laps": [
+            {
+                "afstand": 2002.68,
+                "tijd": 744,
+                "tempo": 2.69
+            },
+            {
+                "afstand": 355.82,
+                "tijd": 103,
+                "tempo": 3.45
+            },
+            {
+                "afstand": 996.15,
+                "tijd": 280,
+                "tempo": 3.56
+            },
+            {
+                "afstand": 173.63,
+                "tijd": 118,
+                "tempo": 1.47
+            },
+            {
+                "afstand": 1008.1,
+                "tijd": 281,
+                "tempo": 3.59
+            },
+            {
+                "afstand": 196.04,
+                "tijd": 119,
+                "tempo": 1.65
+            },
+            {
+                "afstand": 995.6,
+                "tijd": 287,
+                "tempo": 3.47
+            },
+            {
+                "afstand": 170.07,
+                "tijd": 119,
+                "tempo": 1.43
+            },
+            {
+                "afstand": 995.83,
+                "tijd": 284,
+                "tempo": 3.51
+            },
+            {
+                "afstand": 209.53,
+                "tijd": 119,
+                "tempo": 1.76
+            },
+            {
+                "afstand": 994.61,
+                "tijd": 279,
+                "tempo": 3.56
+            },
+            {
+                "afstand": 223.61,
+                "tijd": 119,
+                "tempo": 1.88
+            },
+            {
+                "afstand": 998.72,
+                "tijd": 362,
+                "tempo": 2.76
+            },
+            {
+                "afstand": 14.26,
+                "tijd": 6,
+                "tempo": 2.38
+            }
+        ]
+    },
+    {
+        "id": 18185310161,
+        "datum": "2026-04-20",
+        "naam": "Rustige Namiddagloop",
+        "afstand_m": 4523.7,
+        "tijd_sec": 1879,
+        "workout_type": 3,
+        "laps": [
+            {
+                "afstand": 4517.2,
+                "tijd": 1882,
+                "tempo": 2.4
+            }
+        ]
+    },
+    {
+        "id": 18167496796,
+        "datum": "2026-04-19",
+        "naam": "Ochtendloop",
+        "afstand_m": 3011.9,
+        "tijd_sec": 978,
+        "workout_type": 3,
+        "laps": [
+            {
+                "afstand": 3008.64,
+                "tijd": 983,
+                "tempo": 3.06
+            }
+        ]
+    },
+    {
+        "id": 18167136007,
+        "datum": "2026-04-19",
+        "naam": "Test run Parkloop Zuiderpark",
+        "afstand_m": 4973.9,
+        "tijd_sec": 1739,
+        "workout_type": 0,
+        "laps": [
+            {
+                "afstand": 4970.15,
+                "tijd": 1743,
+                "tempo": 2.85
+            }
+        ]
+    },
+    {
+        "id": 18167135999,
+        "datum": "2026-04-19",
+        "naam": "Warming up loop",
+        "afstand_m": 3016.8,
+        "tijd_sec": 1161,
+        "workout_type": 3,
+        "laps": [
+            {
+                "afstand": 3016.38,
+                "tijd": 1162,
+                "tempo": 2.6
+            }
+        ]
+    },
+    {
+        "id": 18134021837,
+        "datum": "2026-04-16",
+        "naam": "Interval run",
+        "afstand_m": 8596.2,
+        "tijd_sec": 3194,
+        "workout_type": 3,
+        "laps": [
+            {
+                "afstand": 1997.07,
+                "tijd": 788,
+                "tempo": 2.53
+            },
+            {
+                "afstand": 400.59,
+                "tijd": 115,
+                "tempo": 3.48
+            },
+            {
+                "afstand": 162.96,
+                "tijd": 89,
+                "tempo": 1.83
+            },
+            {
+                "afstand": 403.42,
+                "tijd": 112,
+                "tempo": 3.6
+            },
+            {
+                "afstand": 146.18,
+                "tijd": 90,
+                "tempo": 1.62
+            },
+            {
+                "afstand": 402.89,
+                "tijd": 110,
+                "tempo": 3.66
+            },
+            {
+                "afstand": 154.09,
+                "tijd": 90,
+                "tempo": 1.71
+            },
+            {
+                "afstand": 403.09,
+                "tijd": 112,
+                "tempo": 3.6
+            },
+            {
+                "afstand": 152.77,
+                "tijd": 89,
+                "tempo": 1.72
+            },
+            {
+                "afstand": 400.99,
+                "tijd": 109,
+                "tempo": 3.68
+            },
+            {
+                "afstand": 162.4,
+                "tijd": 89,
+                "tempo": 1.82
+            },
+            {
+                "afstand": 396.38,
+                "tijd": 112,
+                "tempo": 3.54
+            },
+            {
+                "afstand": 151.12,
+                "tijd": 89,
+                "tempo": 1.7
+            },
+            {
+                "afstand": 399.82,
+                "tijd": 110,
+                "tempo": 3.63
+            },
+            {
+                "afstand": 169.49,
+                "tijd": 89,
+                "tempo": 1.9
+            },
+            {
+                "afstand": 394.04,
+                "tijd": 103,
+                "tempo": 3.83
+            },
+            {
+                "afstand": 148.57,
+                "tijd": 89,
+                "tempo": 1.67
+            },
+            {
+                "afstand": 382.81,
+                "tijd": 107,
+                "tempo": 3.58
+            },
+            {
+                "afstand": 156.02,
+                "tijd": 89,
+                "tempo": 1.75
+            },
+            {
+                "afstand": 399.58,
+                "tijd": 112,
+                "tempo": 3.57
+            },
+            {
+                "afstand": 175.77,
+                "tijd": 89,
+                "tempo": 1.97
+            },
+            {
+                "afstand": 994.04,
+                "tijd": 399,
+                "tempo": 2.49
+            },
+            {
+                "afstand": 5.91,
+                "tijd": 5,
+                "tempo": 1.18
+            }
+        ]
+    },
+    {
+        "id": 18092680895,
+        "datum": "2026-04-13",
+        "naam": "Namiddagloop",
+        "afstand_m": 5283.1,
+        "tijd_sec": 2225,
+        "workout_type": null,
+        "laps": [
+            {
+                "afstand": 5283.1,
+                "tijd": 2233,
+                "tempo": 2.37
+            }
+        ]
+    },
+    {
+        "id": 18065702362,
+        "datum": "2026-04-11",
+        "naam": "Weekend loop",
+        "afstand_m": 8281.9,
+        "tijd_sec": 3541,
+        "workout_type": 2,
+        "laps": [
+            {
+                "afstand": 8294.74,
+                "tijd": 3542,
+                "tempo": 2.34
+            }
+        ]
+    },
+    {
+        "id": 18042365475,
+        "datum": "2026-04-09",
+        "naam": "Namiddagloop",
+        "afstand_m": 5637.7,
+        "tijd_sec": 2016,
+        "workout_type": 3,
+        "laps": [
+            {
+                "afstand": 5642.25,
+                "tijd": 2015,
+                "tempo": 2.8
+            }
+        ]
+    },
+    {
+        "id": 18014828669,
+        "datum": "2026-04-07",
+        "naam": "Interval training",
+        "afstand_m": 8652.5,
+        "tijd_sec": 2956,
+        "workout_type": 3,
+        "laps": [
+            {
+                "afstand": 1999.95,
+                "tijd": 691,
+                "tempo": 2.89
+            },
+            {
+                "afstand": 395.84,
+                "tijd": 106,
+                "tempo": 3.73
+            },
+            {
+                "afstand": 180.29,
+                "tijd": 89,
+                "tempo": 2.03
+            },
+            {
+                "afstand": 397.14,
+                "tijd": 105,
+                "tempo": 3.78
+            },
+            {
+                "afstand": 161.87,
+                "tijd": 89,
+                "tempo": 1.82
+            },
+            {
+                "afstand": 391.01,
+                "tijd": 105,
+                "tempo": 3.72
+            },
+            {
+                "afstand": 173.11,
+                "tijd": 89,
+                "tempo": 1.95
+            },
+            {
+                "afstand": 403.78,
+                "tijd": 104,
+                "tempo": 3.88
+            },
+            {
+                "afstand": 169.86,
+                "tijd": 89,
+                "tempo": 1.91
+            },
+            {
+                "afstand": 396.68,
+                "tijd": 105,
+                "tempo": 3.78
+            },
+            {
+                "afstand": 163.44,
+                "tijd": 89,
+                "tempo": 1.84
+            },
+            {
+                "afstand": 398.9,
+                "tijd": 105,
+                "tempo": 3.8
+            },
+            {
+                "afstand": 161.74,
+                "tijd": 89,
+                "tempo": 1.82
+            },
+            {
+                "afstand": 387.57,
+                "tijd": 101,
+                "tempo": 3.84
+            },
+            {
+                "afstand": 176.22,
+                "tijd": 89,
+                "tempo": 1.98
+            },
+            {
+                "afstand": 393.42,
+                "tijd": 98,
+                "tempo": 4.01
+            },
+            {
+                "afstand": 165.27,
+                "tijd": 89,
+                "tempo": 1.86
+            },
+            {
+                "afstand": 397.22,
+                "tijd": 97,
+                "tempo": 4.1
+            },
+            {
+                "afstand": 163.54,
+                "tijd": 89,
+                "tempo": 1.84
+            },
+            {
+                "afstand": 395.74,
+                "tijd": 100,
+                "tempo": 3.96
+            },
+            {
+                "afstand": 170.1,
+                "tijd": 89,
+                "tempo": 1.91
+            },
+            {
+                "afstand": 998.96,
+                "tijd": 334,
+                "tempo": 2.99
+            },
+            {
+                "afstand": 3.78,
+                "tijd": 3,
+                "tempo": 1.26
+            }
+        ]
+    },
+    {
+        "id": 17999026445,
+        "datum": "2026-04-06",
+        "naam": "Paasloop (tempo run)",
+        "afstand_m": 10024.1,
+        "tijd_sec": 3103,
+        "workout_type": 2,
+        "laps": [
+            {
+                "afstand": 9987.26,
+                "tijd": 3100,
+                "tempo": 3.22
+            }
+        ]
+    },
+    {
+        "id": 17973892190,
+        "datum": "2026-04-04",
+        "naam": "Progressieve middag loop",
+        "afstand_m": 10030.4,
+        "tijd_sec": 3392,
+        "workout_type": 2,
+        "laps": [
+            {
+                "afstand": 10012.5,
+                "tijd": 3392,
+                "tempo": 2.95
+            }
+        ]
+    },
+    {
+        "id": 17949179613,
+        "datum": "2026-04-02",
+        "naam": "Lunch loop",
+        "afstand_m": 5019.6,
+        "tijd_sec": 1700,
+        "workout_type": 3,
+        "laps": [
+            {
+                "afstand": 5013.12,
+                "tijd": 1701,
+                "tempo": 2.95
+            }
+        ]
+    }
+]
