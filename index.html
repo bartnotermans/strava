@@ -19,7 +19,7 @@
             background: var(--bg-color); 
             color: var(--text-main); 
             margin: 0; 
-            padding: 60px 20px;
+            padding: 40px 20px;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -27,7 +27,7 @@
             max-width: 1100px; 
             margin: auto; 
             background: var(--card-bg); 
-            padding: 60px; 
+            padding: 40px; 
             border-radius: 28px; 
             box-shadow: 0 20px 40px rgba(0,0,0,0.04); 
         }
@@ -35,6 +35,7 @@
         .header {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             margin-bottom: 50px;
             padding-bottom: 30px;
             border-bottom: 1.5px solid var(--border-color);
@@ -63,6 +64,7 @@
             border-radius: 20px; 
             border: 1px solid #f0f0f0;
             margin-bottom: 60px;
+            position: relative;
         }
 
         .filter-group { display: flex; flex-direction: column; gap: 12px; }
@@ -73,11 +75,21 @@
             border: 1.5px solid #e2e2e2; 
             border-radius: 14px; 
             font-size: 1rem; 
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        input:focus { outline: none; border-color: var(--strava-orange); box-shadow: 0 0 0 4px rgba(252, 76, 2, 0.08); }
 
-        h2 { font-size: 1.3rem; margin-bottom: 30px; color: var(--text-main); font-weight: 800; letter-spacing: -0.02em;}
+        .reset-btn {
+            background: var(--strava-orange);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            display: none;
+            margin-bottom: 20px;
+        }
+
+        h2 { font-size: 1.3rem; margin-bottom: 30px; color: var(--text-main); font-weight: 800; }
         table { width: 100%; border-collapse: collapse; margin-bottom: 60px; }
         
         th { 
@@ -87,17 +99,20 @@
             text-transform: uppercase; 
             color: var(--text-muted); 
             border-bottom: 2px solid var(--border-color);
-            letter-spacing: 0.15em;
             font-weight: 700;
         }
 
-        td { padding: 25px 15px; border-bottom: 1px solid #f5f5f5; font-size: 1.05rem; }
+        td { padding: 20px 15px; border-bottom: 1px solid #f5f5f5; font-size: 1rem; }
 
         .pace-badge { font-weight: 600; color: var(--text-main); font-variant-numeric: tabular-nums;}
-        .fastest-text { color: var(--strava-orange); font-weight: 800; font-size: 1.1rem; font-variant-numeric: tabular-nums;}
+        .fastest-text { color: var(--strava-orange); font-weight: 800; font-variant-numeric: tabular-nums;}
+        .source-text { display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: normal; margin-top: 4px; }
         .count-tag { background: #f0f0f2; padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; color: var(--text-main); font-weight: 600; }
         
-        tr:hover td { background-color: #fafafa; }
+        .clickable-row { cursor: pointer; transition: background 0.2s; }
+        .clickable-row:hover { background-color: #fdf2ee !important; }
+        .active-filter-hint { color: var(--strava-orange); font-weight: 700; font-size: 0.9rem; margin-bottom: 10px; display: none; }
+
         small { font-size: 0.8em; color: var(--text-muted); font-weight: normal; margin-left: 3px;}
     </style>
 </head>
@@ -106,17 +121,18 @@
 <div class="container">
     <div class="header">
         <div class="brand">
-            <svg class="strava-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l7 13.828h-4.172"/>
-            </svg>
+            <svg class="strava-logo" viewBox="0 0 24 24"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l7 13.828h-4.172"/></svg>
             <div class="title-group">
-                <h1>Strava <span>Performance Dashboard</span></h1>
-                <p class="subtitle">Analyse van Bart’s snelste trainingen en laps</p>
+                <h1>Strava <span>Dashboard</span></h1>
+                <p class="subtitle">Analyse van Bart’s prestaties</p>
             </div>
         </div>
     </div>
 
-    <div class="filters">
+    <div id="activeFilterHint" class="active-filter-hint">Focus op geselecteerde training: <span id="selectedRunName"></span></div>
+    <button id="resetBtn" class="reset-btn" onclick="resetView()">Alle trainingen tonen</button>
+
+    <div class="filters" id="filterPanel">
         <div class="filter-group"><label>Vanaf</label><input type="date" id="dateFrom"></div>
         <div class="filter-group"><label>Tot</label><input type="date" id="dateTo"></div>
         <div class="filter-group"><label>Zoeken</label><input type="text" id="nameFilter" placeholder="Zoek training..."></div>
@@ -126,16 +142,16 @@
     <table id="statsTable">
         <thead>
             <tr>
-                <th style="width: 25%">Afstand</th>
-                <th style="width: 15%; text-align: center;">Aantal</th>
-                <th style="width: 30%">Gem. Tempo</th>
-                <th style="width: 30%">Snelste Lap/Rit</th>
+                <th style="width: 20%">Afstand</th>
+                <th style="width: 10%; text-align: center;">Aantal</th>
+                <th style="width: 25%">Gem. Tempo</th>
+                <th style="width: 45%">Snelste Lap/Rit</th>
             </tr>
         </thead>
         <tbody id="statsBody"></tbody>
     </table>
 
-    <h2>Logboek</h2>
+    <h2>Logboek <small>(Klik op een rit voor details)</small></h2>
     <table>
         <thead>
             <tr>
@@ -151,6 +167,7 @@
 
 <script>
     let allRuns = [];
+    let selectedRunId = null;
 
     function formatDate(dateStr) {
         if (!dateStr) return "-";
@@ -165,24 +182,47 @@
         return `${mins}:${secs.toString().padStart(2, '0')} <small>min/km</small>`;
     }
 
+    function resetView() {
+        selectedRunId = null;
+        document.getElementById('resetBtn').style.display = 'none';
+        document.getElementById('activeFilterHint').style.display = 'none';
+        document.getElementById('filterPanel').style.opacity = '1';
+        updateDashboard();
+    }
+
+    function selectRun(runId, runName) {
+        selectedRunId = runId;
+        document.getElementById('resetBtn').style.display = 'block';
+        document.getElementById('selectedRunName').innerText = runName;
+        document.getElementById('activeFilterHint').style.display = 'block';
+        document.getElementById('filterPanel').style.opacity = '0.3';
+        updateDashboard();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     function updateDashboard() {
         const from = document.getElementById('dateFrom').value;
         const to = document.getElementById('dateTo').value;
         const name = document.getElementById('nameFilter').value.toLowerCase();
 
-        const filtered = allRuns.filter(r => 
-            (!from || r.datum >= from) && 
-            (!to || r.datum <= to) && 
-            (!name || r.naam.toLowerCase().includes(name))
-        );
+        let filtered = allRuns;
 
-        // CONFIGURATIE AFSTANDEN
-        // type: 'lap' (zoekt in rondes) of 'full' (zoekt in hele trainingen)
+        // Als er een specifieke run is geselecteerd, negeer dan de andere filters
+        if (selectedRunId) {
+            filtered = allRuns.filter(r => r.id === selectedRunId);
+        } else {
+            filtered = allRuns.filter(r => 
+                (!from || r.datum >= from) && 
+                (!to || r.datum <= to) && 
+                (!name || r.naam.toLowerCase().includes(name))
+            );
+        }
+
         const targets = [
-            { label: "400m", dist: 400, margin: 60, type: 'lap' },
-            { label: "1 km", dist: 1000, margin: 120, type: 'lap' },
-            { label: "5 km", dist: 5000, margin: 400, type: 'full' },
-            { label: "10 km", dist: 10000, margin: 800, type: 'full' },
+            { label: "400m", dist: 400, margin: 100, type: 'lap' },
+            { label: "1 km", dist: 1000, margin: 150, type: 'lap' },
+            { label: "5 km", dist: 5000, margin: 500, type: 'full' },
+            { label: "10 km", dist: 10000, margin: 900, type: 'full' },
             { label: "Halve Marathon", dist: 21097, margin: 1000, type: 'full' }
         ];
 
@@ -196,25 +236,43 @@
                 if (t.type === 'lap' && run.laps) {
                     run.laps.forEach(lap => {
                         if (Math.abs(lap.afstand - t.dist) < t.margin) {
-                            matches.push(lap.tijd / (lap.afstand / 1000));
+                            matches.push({
+                                pace: lap.tijd / (lap.afstand / 1000),
+                                date: run.datum,
+                                name: run.naam
+                            });
                         }
                     });
                 } else if (t.type === 'full') {
                     if (Math.abs(run.afstand_m - t.dist) < t.margin) {
-                        matches.push(run.tijd_sec / (run.afstand_m / 1000));
+                        matches.push({
+                            pace: run.tijd_sec / (run.afstand_m / 1000),
+                            date: run.datum,
+                            name: run.naam
+                        });
                     }
                 }
             });
 
-            const avg = matches.length > 0 ? matches.reduce((a,b) => a+b, 0) / matches.length : null;
-            const fastest = matches.length > 0 ? Math.min(...matches) : null;
+            const paces = matches.map(m => m.pace);
+            const avg = paces.length > 0 ? paces.reduce((a,b) => a+b, 0) / paces.length : null;
+            
+            let fastestObj = null;
+            if (matches.length > 0) {
+                fastestObj = matches.reduce((prev, curr) => (prev.pace < curr.pace) ? prev : curr);
+            }
 
             statsBody.innerHTML += `
                 <tr>
                     <td><strong>${t.label}</strong></td>
                     <td style="text-align: center;"><span class="count-tag">${matches.length}x</span></td>
                     <td class="pace-badge">${avg ? formatPace(avg) : '-'}</td>
-                    <td class="fastest-text">${fastest ? formatPace(fastest) : '-'}</td>
+                    <td>
+                        ${fastestObj ? `
+                            <span class="fastest-text">${formatPace(fastestObj.pace)}</span>
+                            <span class="source-text">${formatDate(fastestObj.date)} - ${fastestObj.name}</span>
+                        ` : '-'}
+                    </td>
                 </tr>
             `;
         });
@@ -222,21 +280,23 @@
         const detailsBody = document.getElementById('detailsBody');
         detailsBody.innerHTML = '';
         [...filtered].sort((a,b) => new Date(b.datum) - new Date(a.datum)).forEach(run => {
-            detailsBody.innerHTML += `
-                <tr>
-                    <td style="color:var(--text-muted); font-variant-numeric: tabular-nums;">${formatDate(run.datum)}</td>
-                    <td style="font-weight:600;">${run.naam}</td>
-                    <td>${(run.afstand_m/1000).toFixed(2)} km</td>
-                    <td class="pace-badge">${formatPace(run.tijd_sec/(run.afstand_m/1000))}</td>
-                </tr>
+            const row = document.createElement('tr');
+            row.className = 'clickable-row';
+            row.onclick = () => selectRun(run.id, run.naam);
+            row.innerHTML = `
+                <td style="color:var(--text-muted); font-variant-numeric: tabular-nums;">${formatDate(run.datum)}</td>
+                <td style="font-weight:600;">${run.naam}</td>
+                <td>${(run.afstand_m/1000).toFixed(2)} km</td>
+                <td class="pace-badge">${formatPace(run.tijd_sec/(run.afstand_m/1000))}</td>
             `;
+            detailsBody.appendChild(row);
         });
     }
 
     fetch('stats.json').then(r => r.json()).then(data => {
         allRuns = data;
-        const startJaar = new Date(new Date().getFullYear(), 0, 1).toISOString().split('T')[0];
-        document.getElementById('dateFrom').value = startJaar;
+        // Default: toon alles van 2025/2026
+        document.getElementById('dateFrom').value = "2025-01-01";
         document.getElementById('dateTo').value = new Date().toISOString().split('T')[0];
         updateDashboard();
     });
