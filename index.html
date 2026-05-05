@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bart's Strava Stats</title>
+    <title>Bart's Strava Dashboard</title>
     <style>
         :root {
             --strava-orange: #FC4C02;
@@ -34,7 +34,7 @@
 
         .header { display: flex; align-items: center; margin-bottom: 25px; }
         .strava-logo { width: 36px; height: 36px; fill: var(--strava-orange); margin-right: 12px; }
-        .title-group h1 { font-size: 1.8rem; font-weight: 900; margin: 0; }
+        .title-group h1 { font-size: 1.8rem; font-weight: 900; margin: 0; letter-spacing: -0.02em; }
         .title-group h1 span { color: var(--strava-orange); }
 
         .filters { 
@@ -60,14 +60,14 @@
         h2 { font-size: 1.2rem; font-weight: 800; margin: 35px 0 15px 0; border-left: 4px solid var(--strava-orange); padding-left: 12px; }
 
         .table-wrapper { width: 100%; overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; min-width: 400px; }
+        table { width: 100%; border-collapse: collapse; min-width: 450px; }
         th { text-align: left; padding: 12px 8px; font-size: 0.7rem; color: var(--text-muted); border-bottom: 2px solid var(--border-color); text-transform: uppercase; }
         td { padding: 15px 8px; border-bottom: 1px solid #f5f5f5; font-size: 0.9rem; }
-        .pace-cell { font-weight: 700; text-align: right; }
+        .pace-cell { font-weight: 700; text-align: right; white-space: nowrap; }
 
         @media (min-width: 768px) {
             .filters { grid-template-columns: repeat(3, 1fr); }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-grid { grid-template-columns: repeat(3, 1fr); }
             .container { padding: 40px; }
         }
     </style>
@@ -79,7 +79,7 @@
         <svg class="strava-logo" viewBox="0 0 24 24"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l7 13.828h-4.172"/></svg>
         <div class="title-group">
             <h1>Bart's <span>Stats</span></h1>
-            <p style="color:var(--text-muted); margin:0;">Analyse 2025 - 2026</p>
+            <p style="color:var(--text-muted); margin:0; font-size: 0.9rem;">Performance Analyse 2025 - 2026</p>
         </div>
     </div>
 
@@ -89,16 +89,16 @@
         <div class="filter-group"><label>Zoek</label><input type="text" id="nameFilter" placeholder="Bijv. Interval..."></div>
     </div>
 
-    <h2>Records</h2>
+    <h2>Snelste Records</h2>
     <div id="statsGrid" class="stats-grid"></div>
 
-    <h2>Logboek (Laatste 50)</h2>
+    <h2>Activiteiten Logboek</h2>
     <div class="table-wrapper">
         <table>
             <thead>
                 <tr>
                     <th style="width: 25%">Datum</th>
-                    <th style="width: 50%">Activiteit</th>
+                    <th style="width: 50%">Training</th>
                     <th style="width: 25%; text-align: right;">Tempo</th>
                 </tr>
             </thead>
@@ -128,14 +128,15 @@
             (!nameFilter || r.naam.toLowerCase().includes(nameFilter))
         );
 
+        // CONFIGURATIE AFSTANDEN MET RUIME MARGES
         const targets = [
-            { label: "400m", dist: 400, margin: 100, type: 'lap' },
-            { label: "1 km", dist: 1000, margin: 150, type: 'both' },
-            { label: "5 km", dist: 5000, margin: 500, type: 'full' },
-            { label: "10 km", dist: 10000, margin: 900, type: 'full' },
-            { label: "15 km", dist: 15000, margin: 1000, type: 'full' },
-            { label: "Halve Marathon", dist: 21097, margin: 1200, type: 'full' },
-            { label: "Marathon", dist: 42195, margin: 2000, type: 'full' }
+            { label: "400m", dist: 400, margin: 150 },
+            { label: "1 km", dist: 1000, margin: 250 },
+            { label: "5 km", dist: 5000, margin: 600 },
+            { label: "10 km", dist: 10000, margin: 1000 },
+            { label: "15 km", dist: 15000, margin: 1500 },
+            { label: "Halve Marathon", dist: 21097, margin: 2000 },
+            { label: "Marathon", dist: 42195, margin: 3000 }
         ];
 
         const grid = document.getElementById('statsGrid');
@@ -144,32 +145,31 @@
         targets.forEach(t => {
             let paces = [];
             filtered.forEach(run => {
-                if ((t.type === 'lap' || t.type === 'both') && run.laps) {
+                // Check in de rondes (voor intervallen/sprints)
+                if (run.laps) {
                     run.laps.forEach(lap => {
                         if (Math.abs(lap.afstand - t.dist) < t.margin && lap.tijd > 0) {
                             paces.push(lap.tijd / (lap.afstand / 1000));
                         }
                     });
                 }
-                if (t.type === 'full' || t.type === 'both') {
-                    if (Math.abs(run.afstand_m - t.dist) < t.margin && run.tijd_sec > 0) {
-                        paces.push(run.tijd_sec / (run.afstand_m / 1000));
-                    }
+                // Check in de totale rit (voor PR's)
+                if (Math.abs(run.afstand_m - t.dist) < t.margin && run.tijd_sec > 0) {
+                    paces.push(run.tijd_sec / (run.afstand_m / 1000));
                 }
             });
 
             const fastest = paces.length > 0 ? Math.min(...paces) : null;
-            const avg = paces.length > 0 ? paces.reduce((a,b) => a+b, 0) / paces.length : null;
+            const count = paces.length;
 
             grid.innerHTML += `
                 <div class="stat-card">
                     <div class="stat-info">
                         <div class="label">${t.label}</div>
-                        <div style="font-size:0.75rem; color:var(--text-muted)">${paces.length}x gevonden</div>
+                        <div style="font-size:0.7rem; color:var(--text-muted)">${count}x gedaan</div>
                     </div>
                     <div class="stat-values">
                         <span class="fastest">${fastest ? formatPace(fastest) : '--:--'}</span>
-                        <span style="font-size:0.8rem; color:var(--text-muted)">Gem: ${avg ? formatPace(avg).replace('<small> m/km</small>', '') : '-'}</span>
                     </div>
                 </div>
             `;
@@ -178,15 +178,18 @@
         const detailsBody = document.getElementById('detailsBody');
         detailsBody.innerHTML = '';
         
-        [...filtered].sort((a,b) => b.datum.localeCompare(a.datum)).slice(0, 50).forEach(run => {
+        [...filtered].sort((a,b) => b.datum.localeCompare(a.datum)).slice(0, 100).forEach(run => {
             const d = run.datum.split('-');
-            const displayDate = `${d[2]}-${d[1]}-${d[0]}`; // dd-mm-yyyy
+            const displayDate = `${d[2]}-${d[1]}-${d[0]}`; 
             const pace = run.tijd_sec / (run.afstand_m / 1000);
 
             detailsBody.innerHTML += `
                 <tr>
-                    <td style="color:var(--text-muted);">${displayDate}</td>
-                    <td><strong>${run.naam}</strong><br><span style="font-size:0.75rem; color:var(--text-muted)">${(run.afstand_m/1000).toFixed(2)} km</span></td>
+                    <td style="color:var(--text-muted); font-size:0.8rem;">${displayDate}</td>
+                    <td>
+                        <strong>${run.naam}</strong><br>
+                        <span style="font-size:0.75rem; color:var(--text-muted)">${(run.afstand_m/1000).toFixed(2)} km</span>
+                    </td>
                     <td class="pace-cell">${formatPace(pace)}</td>
                 </tr>
             `;
@@ -200,14 +203,13 @@
             document.getElementById('dateFrom').value = "2025-01-01";
             document.getElementById('dateTo').value = new Date().toISOString().split('T')[0];
             
-            // Koppel events voor de datum-selectors
             document.getElementById('dateFrom').onchange = updateDashboard;
             document.getElementById('dateTo').onchange = updateDashboard;
             document.getElementById('nameFilter').oninput = updateDashboard;
             
             updateDashboard();
         })
-        .catch(err => console.error("Data error:", err));
+        .catch(err => console.error("Kon stats.json niet laden:", err));
 </script>
 </body>
 </html>
