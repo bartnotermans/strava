@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strava Performance Dashboard</title>
+    <title>Bart's Strava Performance</title>
     <style>
         :root {
             --strava-orange: #FC4C02;
@@ -19,15 +19,15 @@
             background: var(--bg-color); 
             color: var(--text-main); 
             margin: 0; 
-            padding: 20px; /* Minder padding op mobiel */
+            padding: 15px;
             -webkit-font-smoothing: antialiased;
         }
 
         .container { 
-            max-width: 1000px; 
+            max-width: 900px; 
             margin: auto; 
             background: var(--card-bg); 
-            padding: 25px; /* Compactere padding */
+            padding: 20px; 
             border-radius: 24px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
         }
@@ -35,80 +35,84 @@
         .header {
             display: flex;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
-        .strava-logo { width: 40px; height: 40px; fill: var(--strava-orange); margin-right: 15px; }
+        .strava-logo { width: 36px; height: 36px; fill: var(--strava-orange); margin-right: 12px; }
 
         .title-group h1 { 
-            font-size: 1.5rem; /* Schaalbaar voor mobiel */
+            font-size: 1.4rem; 
             font-weight: 900; 
             margin: 0; 
             letter-spacing: -0.02em;
         }
         .title-group h1 span { color: var(--strava-orange); }
-        .subtitle { color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; }
+        .subtitle { color: var(--text-muted); font-size: 0.85rem; margin-top: 2px; }
 
-        /* Filters: stapelen op mobiel */
         .filters { 
             display: grid; 
             grid-template-columns: 1fr; 
-            gap: 15px; 
+            gap: 12px; 
             background: #f9f9f9; 
-            padding: 20px; 
+            padding: 15px; 
             border-radius: 18px; 
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
-        .filter-group { display: flex; flex-direction: column; gap: 8px; }
-        label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.1em; }
+        .filter-group { display: flex; flex-direction: column; gap: 5px; }
+        label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.1em; }
         
         input { 
-            padding: 12px; 
+            padding: 10px; 
             border: 1.5px solid #e2e2e2; 
-            border-radius: 12px; 
-            font-size: 16px; /* Voorkomt inzoomen op iPhone */
+            border-radius: 10px; 
+            font-size: 16px; 
+            background: white;
+            color: var(--text-main);
         }
 
-        /* Stats Grid: Kaarten op mobiel, Tabel op Desktop */
         .stats-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
-            margin-bottom: 40px;
+            gap: 12px;
+            margin-bottom: 30px;
         }
 
         .stat-card {
-            padding: 20px;
+            padding: 18px;
             border: 1px solid var(--border-color);
             border-radius: 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: white;
         }
 
-        .stat-info .label { font-size: 1.1rem; font-weight: 800; }
-        .stat-info .count { font-size: 0.8rem; color: var(--text-muted); }
+        .stat-info .label { font-size: 1.05rem; font-weight: 800; }
+        .stat-info .count { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
         .stat-values { text-align: right; }
-        .stat-values .fastest { color: var(--strava-orange); font-weight: 800; font-size: 1.2rem; display: block; }
-        .stat-values .avg { font-size: 0.85rem; color: var(--text-muted); }
+        .stat-values .fastest { color: var(--strava-orange); font-weight: 800; font-size: 1.15rem; display: block; }
+        .stat-values .avg { font-size: 0.8rem; color: var(--text-muted); }
 
-        /* Logboek Tabel: Maak scrollbaar of verberg kolommen */
-        .table-wrapper { width: 100%; overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; min-width: 400px; }
-        th { text-align: left; padding: 12px 8px; font-size: 0.65rem; color: var(--text-muted); border-bottom: 2px solid var(--border-color); text-transform: uppercase; }
-        td { padding: 15px 8px; border-bottom: 1px solid #f5f5f5; font-size: 0.9rem; }
+        h2 { font-size: 1.1rem; font-weight: 800; margin: 30px 0 15px 0; padding-left: 10px; border-left: 4px solid var(--strava-orange); }
 
-        .pace-cell { font-weight: 600; }
-        small { font-size: 0.7em; color: var(--text-muted); }
+        .table-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        table { width: 100%; border-collapse: collapse; min-width: 320px; }
+        th { text-align: left; padding: 10px 8px; font-size: 0.65rem; color: var(--text-muted); border-bottom: 2px solid var(--border-color); text-transform: uppercase; }
+        td { padding: 12px 8px; border-bottom: 1px solid #f5f5f5; font-size: 0.85rem; vertical-align: middle; }
 
-        /* Desktop overrule */
+        .pace-cell { font-weight: 700; text-align: right; white-space: nowrap; }
+        small { font-size: 0.75em; color: var(--text-muted); font-weight: normal; }
+        .run-name { display: block; font-weight: 700; margin-bottom: 2px; color: var(--text-main); }
+        .run-meta { font-size: 0.75rem; color: var(--text-muted); }
+
         @media (min-width: 768px) {
-            body { padding: 60px 20px; }
-            .container { padding: 50px; }
-            .title-group h1 { font-size: 2.2rem; }
+            body { padding: 40px 20px; }
+            .container { padding: 40px; }
+            .title-group h1 { font-size: 2rem; }
             .filters { grid-template-columns: repeat(3, 1fr); }
-            .stats-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            th, td { padding: 15px; }
         }
     </style>
 </head>
@@ -119,27 +123,27 @@
         <svg class="strava-logo" viewBox="0 0 24 24"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l7 13.828h-4.172"/></svg>
         <div class="title-group">
             <h1>Bart's <span>Stats</span></h1>
-            <p class="subtitle">Personal Dashboard</p>
+            <p class="subtitle">Analyse 2025 - 2026</p>
         </div>
     </div>
 
     <div class="filters">
         <div class="filter-group"><label>Vanaf</label><input type="date" id="dateFrom"></div>
         <div class="filter-group"><label>Tot</label><input type="date" id="dateTo"></div>
-        <div class="filter-group"><label>Zoek</label><input type="text" id="nameFilter" placeholder="Training..."></div>
+        <div class="filter-group"><label>Zoek</label><input type="text" id="nameFilter" placeholder="Bijv. Interval..."></div>
     </div>
 
     <h2>Records</h2>
     <div id="statsGrid" class="stats-grid"></div>
 
-    <h2>Logboek</h2>
+    <h2>Logboek (Laatste 50)</h2>
     <div class="table-wrapper">
         <table>
             <thead>
                 <tr>
-                    <th style="width: 25%">Datum</th>
-                    <th style="width: 50%">Training</th>
-                    <th style="width: 25%">Tempo</th>
+                    <th style="width: 20%">Datum</th>
+                    <th style="width: 55%">Activiteit</th>
+                    <th style="width: 25%; text-align: right;">Tempo</th>
                 </tr>
             </thead>
             <tbody id="detailsBody"></tbody>
@@ -151,10 +155,10 @@
     let allRuns = [];
 
     function formatPace(secsPerKm) {
-        if (!secsPerKm || isNaN(secsPerKm)) return "-";
+        if (!secsPerKm || isNaN(secsPerKm) || !isFinite(secsPerKm)) return "--:--";
         const mins = Math.floor(secsPerKm / 60);
         const secs = Math.round(secsPerKm % 60);
-        return `${mins}:${secs.toString().padStart(2, '0')} <small>m/km</small>`;
+        return `${mins}:${secs.toString().padStart(2, '0')}<small> m/km</small>`;
     }
 
     function updateDashboard() {
@@ -168,40 +172,48 @@
             (!nameFilter || r.naam.toLowerCase().includes(nameFilter))
         );
 
+        // CONFIGURATIE RECORDS
         const targets = [
-            { label: "400m", dist: 400, margin: 60, type: 'lap' },
-            { label: "1 km", dist: 1000, margin: 120, type: 'lap' },
-            { label: "5 km", dist: 5000, margin: 400, type: 'full' },
-            { label: "10 km", dist: 10000, margin: 800, type: 'full' }
+            { label: "400m", dist: 400, margin: 100, type: 'lap' },
+            { label: "1 km", dist: 1000, margin: 150, type: 'both' },
+            { label: "5 km", dist: 5000, margin: 500, type: 'full' },
+            { label: "10 km", dist: 10000, margin: 900, type: 'full' }
         ];
 
         const grid = document.getElementById('statsGrid');
         grid.innerHTML = '';
 
         targets.forEach(t => {
-            let matches = [];
+            let paces = [];
             filtered.forEach(run => {
-                if (t.type === 'lap' && run.laps) {
+                // Check in Laps (voor intervallen)
+                if ((t.type === 'lap' || t.type === 'both') && run.laps) {
                     run.laps.forEach(lap => {
-                        if (Math.abs(lap.afstand - t.dist) < t.margin) matches.push(lap.tijd / (lap.afstand / 1000));
+                        if (Math.abs(lap.afstand - t.dist) < t.margin && lap.tijd > 0) {
+                            paces.push(lap.tijd / (lap.afstand / 1000));
+                        }
                     });
-                } else if (t.type === 'full') {
-                    if (Math.abs(run.afstand_m - t.dist) < t.margin) matches.push(run.tijd_sec / (run.afstand_m / 1000));
+                }
+                // Check in Hele Rit (voor PR's op afstand)
+                if ((t.type === 'full' || t.type === 'both') && run.afstand_m > 0) {
+                    if (Math.abs(run.afstand_m - t.dist) < t.margin) {
+                        paces.push(run.tijd_sec / (run.afstand_m / 1000));
+                    }
                 }
             });
 
-            const fastest = matches.length > 0 ? Math.min(...matches) : null;
-            const avg = matches.length > 0 ? matches.reduce((a,b) => a+b, 0) / matches.length : null;
+            const fastest = paces.length > 0 ? Math.min(...paces) : null;
+            const avg = paces.length > 0 ? paces.reduce((a,b) => a+b, 0) / paces.length : null;
 
             grid.innerHTML += `
                 <div class="stat-card">
                     <div class="stat-info">
                         <div class="label">${t.label}</div>
-                        <div class="count">${matches.length}x gedaan</div>
+                        <div class="count">${paces.length}x gevonden</div>
                     </div>
                     <div class="stat-values">
                         <span class="fastest">${fastest ? formatPace(fastest) : '--:--'}</span>
-                        <span class="avg">Gem: ${avg ? formatPace(avg).replace('m/km', '') : '-'}</span>
+                        <span class="avg">Gem: ${avg ? formatPace(avg).replace('<small> m/km</small>', '') : '-'}</span>
                     </div>
                 </div>
             `;
@@ -209,27 +221,46 @@
 
         const detailsBody = document.getElementById('detailsBody');
         detailsBody.innerHTML = '';
-        [...filtered].sort((a,b) => new Date(b.datum) - new Date(a.datum)).slice(0, 50).forEach(run => {
+        
+        const sortedData = [...filtered].sort((a,b) => new Date(b.datum) - new Date(a.datum)).slice(0, 50);
+        
+        sortedData.forEach(run => {
             const dateArr = run.datum.split('-');
             const displayDate = `${dateArr[2]}-${dateArr[1]}`;
+            const pace = run.tijd_sec / (run.afstand_m / 1000);
+
             detailsBody.innerHTML += `
                 <tr>
-                    <td style="color:var(--text-muted);">${displayDate}</td>
-                    <td><strong>${run.naam}</strong><br><small>${(run.afstand_m/1000).toFixed(1)} km</small></td>
-                    <td class="pace-cell">${formatPace(run.tijd_sec/(run.afstand_m/1000))}</td>
+                    <td style="color:var(--text-muted); font-size: 0.75rem;">${displayDate}</td>
+                    <td>
+                        <span class="run-name">${run.naam}</span>
+                        <span class="run-meta">${(run.afstand_m/1000).toFixed(2)} km</span>
+                    </td>
+                    <td class="pace-cell">${formatPace(pace)}</td>
                 </tr>
             `;
         });
     }
 
-    fetch('stats.json').then(r => r.json()).then(data => {
-        allRuns = data;
-        document.getElementById('dateFrom').value = "2025-01-01";
-        document.getElementById('dateTo').value = new Date().toISOString().split('T')[0];
-        updateDashboard();
-    });
+    // Inladen data
+    fetch('stats.json')
+        .then(response => response.json())
+        .then(data => {
+            allRuns = data;
+            // Zet default filters: heel 2025 tot nu
+            document.getElementById('dateFrom').value = "2025-01-01";
+            document.getElementById('dateTo').value = new Date().toISOString().split('T')[0];
+            updateDashboard();
+        })
+        .catch(err => {
+            console.error("Fout:", err);
+            document.getElementById('detailsBody').innerHTML = '<tr><td colspan="3">Kon stats.json niet laden.</td></tr>';
+        });
 
-    document.querySelectorAll('input').forEach(i => i.addEventListener('input', updateDashboard));
+    // Luister naar input wijzigingen
+    document.getElementById('dateFrom').addEventListener('input', updateDashboard);
+    document.getElementById('dateTo').addEventListener('input', updateDashboard);
+    document.getElementById('nameFilter').addEventListener('input', updateDashboard);
 </script>
 </body>
 </html>
